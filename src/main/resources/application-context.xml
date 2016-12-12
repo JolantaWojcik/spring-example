@@ -19,8 +19,11 @@
 	<!-- Hej, beany są nie tylko w XML, ale też przeskanuj sobie pakiet pl.kurs.spring.service 
 		w poszukiwaniu klas z adnotacją @Service -->
 	<context:component-scan base-package="pl.kurs.spring.service" />
-	
+	<!--  
+	<context:component-scan base-package="pl.kurs.spring.aspekty" />
+	-->
 	<aop:aspectj-autoproxy />
+	
 	
 	<!-- Albo skanujemy pakiet zeby automatycznie znalazł beany albo recznie je definujemy w xml'u -->
 	

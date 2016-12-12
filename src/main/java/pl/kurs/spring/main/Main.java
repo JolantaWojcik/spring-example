@@ -1,9 +1,14 @@
 package pl.kurs.spring.main;
 
+import java.rmi.server.Operation;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.print.PrintService;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import pl.kurs.spring.anotacje.BlockIfNegative;
 import pl.kurs.spring.service.Operator;
 import pl.kurs.spring.service.OperatorSolver;
 import pl.kurs.spring.service.PrinterService;
@@ -18,8 +23,6 @@ public class Main {
 		//System.out.println(imie);
 //		Main m = new Main();
 //		m.metoda();
-		
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
 
 //		System.out.println("==== po zbudowaniu kontekstu ===");
 //		PrinterService hello1 = context.getBean("helloPrinter", PrinterService.class);
@@ -32,12 +35,27 @@ public class Main {
 //
 //		System.out.println("hello1==hello2: " + (hello1 == hello2));
 		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("D-MM-YYYY, HH:MM:SS");
+		Date currentDate = new Date();
+		System.out.println("Data: " + dateFormatter.format(currentDate));
+		//		?
+		//		 * Argumenty: ...............
+		//		 * Nazwa Beana: .............
+		System.out.println(context.getBeanNamesForAnnotation(BlockIfNegative.class).toString());
+		System.out.println(context.getBeanNamesForType(Operation.class).toString());
+		//		 * Nazwa metody: ............
+		//?
+		System.out.println(context.getDisplayName());
+
 		OperatorSolver solver = context.getBean(OperatorSolver.class);
 		System.out.println(solver.calculate("8 / -2"));
 		
 		Operator addition = context.getBean("addition", Operator.class);
-		
 		System.out.println(addition.getClass());
+
+		Operator division = context.getBean("division", Operator.class);
+		System.out.println(division.calculate(1, -1));
 		
 		//proxy? vs decorator?
 		
