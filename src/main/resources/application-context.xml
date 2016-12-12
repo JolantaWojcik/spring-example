@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<!-- Inversion of Control -->
+	<!-- cyklem życia jakiejś klasy zarządza nie użytkownik a jakiś "kontener" -->
+	<!-- Dependency Injection -->
+	<!-- nie instancjonujemy klas kiedy ich potrzebujemy ale wstrzykujemy je 
+		na żadanie z "kontenera" -->
+
+	<!-- Hej, beany są nie tylko w XML, ale też przeskanuj sobie pakiet pl.kurs.spring.service 
+		w poszukiwaniu klas z adnotacją @Service -->
+	<context:component-scan base-package="pl.kurs.spring.service" />
+	
+	<aop:aspectj-autoproxy />
+	
+	<!-- Albo skanujemy pakiet zeby automatycznie znalazł beany albo recznie je definujemy w xml'u -->
+	
+	<!-- <bean id="addtion" class="pl.kurs.spring.service.AdditionOperator" />
+	<bean id="subtraction" class="pl.kurs.spring.service.SubtractionOperator" />
+	<bean id="module" class="pl.kurs.spring.service.ModuloOperator" /> -->
+	
+	<!-- Spring Bean Scopes :Google -->
+	<bean id="helloPrinter" class="pl.kurs.spring.service.PrinterService"
+		scope="singleton" init-method="initBean">
+		<property name="textToPrint" value="Hello!" />
+	</bean>
+
+	<bean id="goodbyePrinter" class="pl.kurs.spring.service.PrinterService"
+		scope="prototype">
+		<property name="textToPrint" value="Good Bye!" />
+	</bean>
+	<!-- Czym się rożni Dependency injection od Inversion of Control -->
+</beans>
